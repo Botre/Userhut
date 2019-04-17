@@ -25,6 +25,7 @@ npm install --save userhut
 ```javascript
 import Userhut from "userhut";
 const userhut = new Userhut("your-user-pool-id");
+await userhut.initialize();
 ```
 
 ### Fetch authenticated user
