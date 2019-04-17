@@ -1,4 +1,4 @@
-# Userhut
+# userhut
 
 > AaaS
 
