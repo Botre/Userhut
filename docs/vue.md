@@ -64,7 +64,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    authenticating: false,
+    authenticating: true,
     authenticated: null
   },
   mutations: {
