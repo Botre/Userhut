@@ -1,9 +1,22 @@
 {
   "name": "userhut",
-  "description": "AaaS",
   "version": "1.0.1",
-  "author": "Bjorn Krols",
+  "description": "Userhut JavaScript library",
+  "author": "Bjorn Krols (https://byteboomers.com)",
   "license": "MIT",
+  "keywords": [
+    "authentication",
+    "signin",
+    "signup"
+  ],
+  "homepage": "https://github.com/byteboomers/userhut-js#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/byteboomers/userhut-js.git"
+  },
+  "bugs": {
+    "url": "https://github.com/byteboomers/userhut-js/issues"
+  },
   "main": "dist/userhut.js",
   "scripts": {
     "build": "webpack --mode production --progress"

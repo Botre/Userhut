@@ -1,6 +1,6 @@
 # userhut
 
-> AaaS
+Userhut JavaScript library
 
 ## Installation
 
@@ -53,16 +53,3 @@ userhut.openSignInPage({
   redirect: window.location.href
 });
 ```
-
-## Powered by
-
-- Babel 7
-- Webpack 4
-
-## License
-
-[MIT](http://opensource.org/licenses/MIT)
-
-## Twitter
-
-[Follow me on Twitter](https://twitter.com/KrolsBjorn)
