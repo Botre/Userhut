@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.4.4",
-    "tuai": "0.0.10"
+    "tuai": "^1.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.4.4",
