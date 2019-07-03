@@ -25,7 +25,7 @@
   "husky": {},
   "dependencies": {
     "@babel/runtime": "^7.4.5",
-    "tuai": "^1.0.2"
+    "tuai": "^1.0.3"
   },
   "devDependencies": {
     "@babel/core": "^7.4.5",
