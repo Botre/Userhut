@@ -1,9 +1,5 @@
 import { Sender } from "tuai";
 
-const IFRAME_ID = "userhut-portal";
-const AUTHENTICATION_BASE_URL = "https://authentication.userhut.com";
-const TWENTY_FIVE_SECONDS = 25000;
-
 class TokenCache {
   constructor() {
     this.token = null;
@@ -22,10 +18,13 @@ class TokenCache {
 }
 
 export default function(poolId) {
+  const iframeId = "userhut-portal";
+  const authenticationBaseUrl = "https://authentication.userhut.com";
+
   const sender = new Sender({
-    querySelectors: [`#${IFRAME_ID}`],
-    receiverOrigin: AUTHENTICATION_BASE_URL,
-    timeout: TWENTY_FIVE_SECONDS
+    querySelectors: [`#${iframeId}`],
+    receiverOrigin: authenticationBaseUrl,
+    timeout: 25000
   });
 
   const cache = new TokenCache();
@@ -33,9 +32,9 @@ export default function(poolId) {
   function initialize() {
     return new Promise(resolve => {
       const iframe = document.createElement("iframe");
-      iframe.id = IFRAME_ID;
+      iframe.id = iframeId;
       iframe.style.display = "none";
-      iframe.src = `${AUTHENTICATION_BASE_URL}/portal?poolId=${poolId}`;
+      iframe.src = `${authenticationBaseUrl}/portal?poolId=${poolId}`;
       iframe.onload = () => {
         resolve();
       };
@@ -69,7 +68,7 @@ export default function(poolId) {
   }
 
   function openSignInPage({ redirect = false }) {
-    location.href = `${AUTHENTICATION_BASE_URL}/sign-in?poolId=${poolId}&redirect=${redirect}`;
+    location.href = `${authenticationBaseUrl}/sign-in?poolId=${poolId}&redirect=${redirect}`;
   }
 
   return {
