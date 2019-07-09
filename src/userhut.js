@@ -1,69 +1,77 @@
 import { Sender } from "tuai";
 
+const IFRAME_ID = "userhut-portal";
+const AUTHENTICATION_BASE_URL = "https://authentication.userhut.com";
+const TWENTY_FIVE_SECONDS = 25000;
+
+class TokenCache {
+  constructor() {
+    this.token = null;
+    this.authenticated = null;
+    this.exp = null;
+  }
+  clear() {
+    this.token = null;
+    this.authenticated = null;
+    this.exp = null;
+  }
+  isExpired() {
+    if (!this.exp) return true;
+    return new Date(this.exp * 1000) < new Date();
+  }
+}
+
 export default function(poolId) {
-  const id = "userhut-portal";
-  const origin = "https://authentication.userhut.com";
   const sender = new Sender({
-    querySelectors: [`#${id}`],
-    receiverOrigin: origin,
-    timeout: 25000
+    querySelectors: [`#${IFRAME_ID}`],
+    receiverOrigin: AUTHENTICATION_BASE_URL,
+    timeout: TWENTY_FIVE_SECONDS
   });
-  const cache = {
-    token: null,
-    authenticated: null,
-    exp: null
-  };
-  function clearCache() {
-    cache.token = null;
-    cache.authenticated = null;
-    cache.exp = null;
-  }
-  function isCacheExpired() {
-    if (!cache.exp) return true;
-    return new Date(cache.exp * 1000) < new Date();
-  }
+
+  const cache = new TokenCache();
+
   function initialize() {
     return new Promise(resolve => {
-      // Create iframe
       const iframe = document.createElement("iframe");
-      iframe.id = id;
+      iframe.id = IFRAME_ID;
       iframe.style.display = "none";
-      iframe.src = `${origin}/portal?poolId=${poolId}`;
+      iframe.src = `${AUTHENTICATION_BASE_URL}/portal?poolId=${poolId}`;
       iframe.onload = () => {
         resolve();
       };
       document.body.appendChild(iframe);
     });
   }
+
   async function getToken() {
     let token = cache.token;
-    if (!token || isCacheExpired()) {
-      token = await sender.send("get-token");
-      if (token) {
-        cache.token = token;
-      }
+    if (!token || cache.isExpired()) {
+      token = cache.token = await sender.send("get-token");
     }
     return token;
   }
+
   async function getAuthenticated() {
     let authenticated = cache.authenticated;
-    if (!authenticated || isCacheExpired()) {
+    if (!authenticated || cache.isExpired()) {
       await getToken();
-      authenticated = await sender.send("get-authenticated");
-      if (authenticated) {
-        cache.authenticated = authenticated;
-        cache.exp = authenticated.exp;
-      }
+      authenticated = cache.authenticated = await sender.send(
+        "get-authenticated"
+      );
+      cache.exp = authenticated.exp;
     }
     return authenticated;
   }
+
   async function signOut() {
     await sender.send("sign-out");
-    clearCache();
+    cache.clear();
   }
+
   function openSignInPage({ redirect = false }) {
-    location.href = `${origin}/sign-in?poolId=${poolId}&redirect=${redirect}`;
+    location.href = `${AUTHENTICATION_BASE_URL}/sign-in?poolId=${poolId}&redirect=${redirect}`;
   }
+
   return {
     initialize,
     getToken,
