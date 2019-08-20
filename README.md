@@ -53,3 +53,17 @@ userhut.openSignInPage({
   redirect: window.location.href
 });
 ```
+
+## Git hooks
+
+- pre-commit: re-format staged files with Prettier
+
+## Scripts
+
+```bash
+# Build for production
+npm run build
+
+# Re-format files with Prettier
+npm run prettier
+```
