@@ -18,7 +18,7 @@
   "bugs": {
     "url": "https://github.com/byteboomers/userhut-js/issues"
   },
-  "main": "dist/userhut.js",
+  "main": "dist/main.js",
   "scripts": {
     "build": "webpack --mode production --progress"
   },
