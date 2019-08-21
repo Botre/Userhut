@@ -1,6 +1,7 @@
 module.exports = {
   output: {
     library: "Userhut",
+    filename: "userhut.js",
     libraryTarget: "umd",
     umdNamedDefine: true
   },

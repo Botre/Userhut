@@ -20,7 +20,7 @@
   "bugs": {
     "url": "https://github.com/byteboomers/userhut-js/issues"
   },
-  "main": "dist/main.js",
+  "main": "dist/userhut.js",
   "scripts": {
     "build": "webpack --mode production --progress",
     "prettier": "prettier --write **/*.js **/*.json **/*.yml **/*.md"
@@ -32,7 +32,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.5.5",
-    "tuai": "^1.0.6"
+    "tuai": "^1.0.7"
   },
   "devDependencies": {
     "@babel/core": "^7.5.5",
